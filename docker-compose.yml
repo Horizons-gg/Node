@@ -1,0 +1,7 @@
+services:
+  web:
+    build: .
+    container_name: node-point
+    ports:
+      - "5006:5006"
+    restart: unless-stopped

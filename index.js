@@ -63,7 +63,7 @@ async function Loop() {
 
 
     //? Latency
-    Network['latency'] = await si.inetLatency(config.ping) || await si.inetLatency("1.1.1.1")
+    Network['latency'] = Math.floor(await si.inetLatency(config.ping) || await si.inetLatency("1.1.1.1"))
 
 
     //? CPU Statistics
@@ -143,39 +143,39 @@ async function Loop() {
     // //! Dynamic DNS
     // //!
 
-    if (config.cloudflare.record) {
-        const ddns = require("cloudflare-dynamic-dns")
+    // if (config.cloudflare.record) {
+    //     const ddns = require("cloudflare-dynamic-dns")
 
-        const route = {
-            auth: {
-                email: config.cloudflare.email,
-                key: config.cloudflare.key
-            },
-            recordName: `${config.cloudflare.record}.${config.cloudflare.zone}`,
-            zoneName: config.cloudflare.zone
-        }
+    //     const route = {
+    //         auth: {
+    //             email: config.cloudflare.email,
+    //             key: config.cloudflare.key
+    //         },
+    //         recordName: `${config.cloudflare.record}.${config.cloudflare.zone}`,
+    //         zoneName: config.cloudflare.zone
+    //     }
 
-        const wildcard = {
-            auth: {
-                email: config.cloudflare.email,
-                key: config.cloudflare.key
-            },
-            recordName: `*.${config.cloudflare.record}.${config.cloudflare.zone}`,
-            zoneName: config.cloudflare.zone
-        }
+    //     const wildcard = {
+    //         auth: {
+    //             email: config.cloudflare.email,
+    //             key: config.cloudflare.key
+    //         },
+    //         recordName: `*.${config.cloudflare.record}.${config.cloudflare.zone}`,
+    //         zoneName: config.cloudflare.zone
+    //     }
 
-        ddns.update(route, (err) => {
-            if (!err) return
-            console.log("An error occurred:")
-            console.log(err)
-        })
+    //     ddns.update(route, (err) => {
+    //         if (!err) return
+    //         console.log("An error occurred:")
+    //         console.log(err)
+    //     })
 
-        ddns.update(wildcard, (err) => {
-            if (!err) return
-            console.log("An error occurred:")
-            console.log(err)
-        })
-    }
+    //     ddns.update(wildcard, (err) => {
+    //         if (!err) return
+    //         console.log("An error occurred:")
+    //         console.log(err)
+    //     })
+    // }
 
 
 
@@ -183,26 +183,26 @@ async function Loop() {
     //! Dynamic Firewall
     //!
 
-    if (config.firewall) {
+    // if (config.firewall) {
 
-        let Whitelist = []
+    //     let Whitelist = []
 
-        config.firewall.forEach((domain, index) => {
-            dns.lookup(domain, (err, address, family) => {
-                if (err) console.log(`Failed to lookup "${domain}":\n`, err, '\n')
-                if (address) Whitelist.push(`${address}/32`)
-                if (index >= config.firewall.length - 1) SetFirewall()
-            })
-        })
+    //     config.firewall.forEach((domain, index) => {
+    //         dns.lookup(domain, (err, address, family) => {
+    //             if (err) console.log(`Failed to lookup "${domain}":\n`, err, '\n')
+    //             if (address) Whitelist.push(`${address}/32`)
+    //             if (index >= config.firewall.length - 1) SetFirewall()
+    //         })
+    //     })
 
-        function SetFirewall() {
-            spawn('powershell', [`netsh advfirewall firewall set rule name="Active Directory Domain Controller - LDAP (UDP-In)" new remoteip=${Whitelist.join(',')}`]).stdout.on('data', data => {
-                data = data.toString('utf8')
-                console.log(data)
-            })
-        }
+    //     function SetFirewall() {
+    //         spawn('powershell', [`netsh advfirewall firewall set rule name="Active Directory Domain Controller - LDAP (UDP-In)" new remoteip=${Whitelist.join(',')}`]).stdout.on('data', data => {
+    //             data = data.toString('utf8')
+    //             console.log(data)
+    //         })
+    //     }
 
-    }
+    // }
 
 
 }

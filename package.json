@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/Horizons-gg/Node.git"
   },
-  "author": "Jessica Lancelot",
+  "author": "Dakoda Lancelot",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Horizons-gg/Node/issues"
@@ -19,18 +19,7 @@
     "os-utils": "^0.0.14",
     "systeminformation": "^5.11.14"
   },
-  "devDependencies": {
-    "pkg": "^5.4.1"
-  },
-  "bin": {
-    "myapp": "./app.js"
-  },
-  "pkg": {
-    "assets": [
-      "node_modules/**/*"
-    ],
-    "targets": [
-      "node16-win-x64"
-    ]
+  "scripts": {
+    "start": "node ."
   }
 }
