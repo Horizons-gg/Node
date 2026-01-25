@@ -11,9 +11,6 @@ RUN npm install
 # Copy the rest of the project
 COPY . .
 
-# Build Next.js app
-RUN npm run start
-
 # Expose the port your Next.js app runs on
 EXPOSE 5006
 
