@@ -64,7 +64,7 @@ async function Loop() {
 
 
     //? Latency
-    Network['latency'] = (await ping.promise.probe(config.ping || '1.1.1.1')).time
+    Network['latency'] = Math.floor((await ping.promise.probe(config.ping || '1.1.1.1')).time)
 
 
     //? CPU Statistics
