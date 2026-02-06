@@ -17,6 +17,7 @@
     "cloudflare-dynamic-dns": "^1.0.2",
     "express": "^4.17.1",
     "os-utils": "^0.0.14",
+    "ping": "^1.0.0",
     "systeminformation": "^5.11.14"
   },
   "scripts": {

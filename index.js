@@ -4,6 +4,7 @@
 
 const fs = require('fs')
 const dns = require('dns')
+const ping = require('ping')
 const { spawn } = require('child_process')
 
 const config = JSON.parse(fs.readFileSync('./config.json'))
@@ -63,7 +64,7 @@ async function Loop() {
 
 
     //? Latency
-    Network['latency'] = Math.floor(await si.inetLatency(config.ping) || await si.inetLatency("1.1.1.1"))
+    Network['latency'] = (await ping.promise.probe(config.ping || '1.1.1.1')).time
 
 
     //? CPU Statistics

@@ -1,6 +1,9 @@
 # Use official Node.js LTS image
 FROM node:20-alpine
 
+# Install ping utility for ICMP latency checks
+RUN apk add --no-cache iputils
+
 # Set working directory
 WORKDIR /app
 

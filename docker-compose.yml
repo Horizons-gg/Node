@@ -4,4 +4,7 @@ services:
     container_name: node-point
     ports:
       - "5006:5006"
+    cap_add:
+      - NET_RAW
+
     restart: unless-stopped
