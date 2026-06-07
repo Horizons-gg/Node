@@ -548,18 +548,23 @@ function connectionsCard(c) {
 
 function dockerCard(containers) {
     if (!containers?.length) return ''
-    let html = `<table><thead><tr><th>Name</th><th>Image</th><th>Status</th><th>State</th></tr></thead><tbody>`
+    let html = `<table style="table-layout:fixed;width:100%">
+        <colgroup>
+            <col style="width:22%">
+            <col>
+            <col style="width:80px">
+        </colgroup>
+        <thead><tr><th>Name</th><th>Image</th><th>State</th></tr></thead><tbody>`
     containers.forEach(c => {
         const name = (c.name || c.names || '—').toString().replace(/^\//, '')
         html += `<tr>
-            <td>${name}</td>
-            <td>${c.image || '—'}</td>
-            <td>${c.status || '—'}</td>
+            <td style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${name}">${name}</td>
+            <td style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${c.image || ''}">${c.image || '—'}</td>
             <td>${pill(c.state)}</td>
         </tr>`
     })
     html += `</tbody></table>`
-    return card('Docker Containers', html)
+    return card('Docker Containers', html, true)
 }
 
 function usersCard(users) {
